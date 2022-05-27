@@ -36,7 +36,7 @@ namespace Loja.Repository
 
         public void DeletaProduto(Produto produto)
         {
-            throw new NotImplementedException();
+            _context.Remove(produto);
         }
 
         public async Task<bool> SaveChangesAsync()

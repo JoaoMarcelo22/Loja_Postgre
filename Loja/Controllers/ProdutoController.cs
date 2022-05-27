@@ -51,5 +51,17 @@ namespace Loja.Controllers
                             ? Ok("Produto atualizado com sucesso")
                             : BadRequest("Erro ao atualizar produto");
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id , Produto produto)
+        {
+            var produtoBanco = await _repository.BuscarProduto(id);
+            if ( produtoBanco == null) return NotFound ("Produto não encontrado");
+
+            _repository.DeletaProduto(produtoBanco);
+
+            return await _repository.SaveChangesAsync()
+                                    ? Ok("Produto deletado com sucesso")
+                                    : BadRequest("Erro ao deletar produto");
+        }
     }
 }
