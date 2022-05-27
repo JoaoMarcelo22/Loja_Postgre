@@ -37,5 +37,19 @@ namespace Loja.Controllers
                     ? Ok(produto)
                     :NotFound("Usuario não encontrado");
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, Produto produto)
+        {
+            var produtoBanco = await _repository.BuscarProduto(id);
+            if(produtoBanco == null) return NotFound("Produto não encontrado");
+
+            produtoBanco.Nome = produto.Nome ?? produtoBanco.Nome;
+            
+            _repository.AtualizarProduto(produtoBanco);
+
+            return await _repository.SaveChangesAsync()
+                            ? Ok("Produto atualizado com sucesso")
+                            : BadRequest("Erro ao atualizar produto");
+        }
     }
 }

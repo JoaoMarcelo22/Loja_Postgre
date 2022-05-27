@@ -31,7 +31,7 @@ namespace Loja.Repository
 
         public void AtualizarProduto(Produto produto)
         {
-            throw new NotImplementedException();
+            _context.Update(produto);
         }
 
         public void DeletaProduto(Produto produto)
